@@ -1,0 +1,23 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
+
+name: Node.js Package
+
+on:
+  pull_request:
+    branches:
+    - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+        env:
+        TEST_DATABASE_URL: postgres://ezngannmgkfhab:213ebbcff6d14d7bdbc922620cae6cd80346082a5e74e4282332c0339dc1e3a4@ec2-54-247-122-209.eu-west-1.compute.amazonaws.com:5432/d2p8p6uo9o4bme
+      - run: npm i
+      - run: npm test
