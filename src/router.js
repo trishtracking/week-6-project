@@ -6,6 +6,8 @@ function router(request, response) {
   const method = request.method;
 
   if (url === "/") {
+    handlers.indexHandler(request, response);
+  } else if (url === "/main") {
     handlers.homeHandler(request, response);
   } else if (url === "/read-fortune") {
     handlers.readFortuneHandler(request, response);
@@ -15,13 +17,20 @@ function router(request, response) {
     handlers.formHandler(request, response);  
   } else if (url === "/all-fortunes") {
     handlers.allFortunesHandler(request, response);
-  } else if (url ==="/read-fortune-page") {
+  } else if (url === "/read-fortune-page") {
     handlers.readFortuneHtmlHandler(request, response);
   } else if (url.includes('public')) {
     publicHandler(request, response);
+  } else if (url === "/login") { //login
+    loginHandler(request, response);
+  } else if (url === "/signup") { //signup
+    signupHandler(request, response);
   } else {
     handlers.missingHandler(request, response);
   }
 }
 
 module.exports = router;
+
+
+// create functions for the new handlers
