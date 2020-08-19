@@ -1,0 +1,47 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			  <link href="https://fonts.googleapis.com/css2?family=Sniglet&display=swap" rel="stylesheet" />
+			  <link rel="stylesheet" href="/public/form.css">
+		<title>Add my own saying</title>
+	</head>
+	<body>
+		<h1>Fortune and Cookies</h1>  
+		<h2>Add your own saying:</h2> 
+
+		<form method="POST" action="/create-fortune">
+			<label for="name">Name:</label><br />
+			<input type="text" id="name" name="name" placeholder="" aria-label="Enter Name" /><br />
+      <br>
+			<label for="message">Message:</label><br />
+			<input
+				type="text"
+				id="message"
+				name="message"
+				placeholder=""
+				aria-label="Enter Message"
+			/><br /><br />
+
+			<input type="submit" class="submit" value="Submit" />
+		</form>
+		<input
+				class="home"
+				id="button-home"
+				type="image"
+				src="/public/images/home-icon.png"
+				alt="Home button"
+				width="48"
+				height="48"
+				aria-label="Home Button"
+			/>
+	</body>
+<script>
+	document.querySelector("#button-home").addEventListener("click", () => {
+			location.href = "/"
+		})
+</script>
+</html>
