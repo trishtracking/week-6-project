@@ -7,27 +7,26 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			  <link href="https://fonts.googleapis.com/css2?family=Sniglet&display=swap" rel="stylesheet" />
 			  <link rel="stylesheet" href="/public/form.css">
-		<title>Add my own saying</title>
+		<title>Login to Fortune and Cookies</title>
 	</head>
 	<body>
 		<h1>Fortune and Cookies</h1>  
-		<h2>Log in:</h2> 
+		<h2>Login:</h2> 
 
         <form method="POST" action="/login">
             
 			<label for="username">
                 User name:
-                <span aria-hidden="true">*</span>
+                <span aria-hidden="true"></span>
             </label><br/>
 			
 			<input type="text" id="username" name="username" placeholder="" aria-label="Enter username" required/><br />
       <br>
 			<label for="password">
                 Password:
-                <span aria-hidden="true">*</span>
+                <span aria-hidden="true"></span>
             </label><br/>
 
-            <div id="passwordRequirements">Your password needs to contain at least 7 characters, including at least one number.</div> 
 			<input
 				type="password"
 				id="password"
@@ -35,7 +34,7 @@
 				placeholder=""
                 aria-label="Enter password"
                 required
-                aria-describedby="passwordRequirements passwordError"
+                aria-describedby="passwordError"
                 pattern=".*\d.*"
                 minlength="7"
             />
@@ -43,7 +42,7 @@
                 
             </div><br/><br/>
 
-			<input type="submit" class="submit" value="Log in" />
+			<input type="submit" class="submit" value="Login" />
 		</form>
 		<input
 				class="home"
