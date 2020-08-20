@@ -6,7 +6,7 @@ function router(request, response) {
   const method = request.method;
 
   if (url === "/") {
-    handlers.indexHandler(request, response);
+    handlers.indexHandler(request, response); //called from the start, loads the index page
   } else if (url === "/main") {
     handlers.homeHandler(request, response);
   } else if (url === "/read-fortune") {
@@ -23,11 +23,11 @@ function router(request, response) {
     handlers.loginPageHandler(request, response);
   } else if (url === "/login") {
     handlers.loginHandler(request, response);
-  }else if (url === "/signup-page") { 
+  }else if (url === "/signup-page") {  //called when you click 'sign-up' button on index page
     handlers.signupPageHandler(request, response);
-  } else if (url === "/signup") {
+  } else if (url === "/signup") { // called when you click submit for sign-up form
     handlers.signupHandler(request,response);
-  } else if (url.includes('public')) {
+  } else if (url.includes('public')) { //helps read html, css and js files
     publicHandler(request, response);
    } else {
     handlers.missingHandler(request, response);
