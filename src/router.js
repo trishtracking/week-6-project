@@ -19,9 +19,9 @@ function router(request, response) {
     handlers.allFortunesHandler(request, response);
   } else if (url === "/read-fortune-page") {
     handlers.readFortuneHtmlHandler(request, response);
-  } else if (url === "/login") { //login
+  } else if (url === "/login") { 
     loginHandler(request, response);
-  } else if (url === "/signup") { //signup
+  } else if (url === "/signup") { 
     handlers.signupHandler(request, response);
   } else if (url.includes('public')) {
     publicHandler(request, response);

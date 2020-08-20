@@ -31,6 +31,19 @@ function signupHandler(request, response) {
 	});
 }
 
+function loginHandler(request, response) {
+	fs.readFile(path.join(__dirname, "..", "public", "login.html"), (error, file) => {
+		if (error) {
+			console.log(error);
+			response.writeHead(404, { "content-type": "text/html" });
+			response.end("<h1> Not Found </h1>");
+		} else {
+			response.writeHead(200, { "content-type": "text/html" });
+			response.end(file);
+		}
+	});
+}
+
 function indexHandler(request, response) {
 		fs.readFile(path.join(__dirname, "..", "public", "index.html"), (error, file) => {
 			if (error) {
@@ -200,13 +213,9 @@ module.exports = {
 	createFortuneHandler,
 	formHandler,
 	readFortuneHandler,
-<<<<<<< HEAD
 	signupHandler,
 	indexHandler,
-	readFortuneHtmlHandler
-=======
 	readFortuneHtmlHandler,
-	signupHandler
->>>>>>> d5938fa4581f39707afd30a8c7616d0734a1ff79
+	loginHandler
 };
 
