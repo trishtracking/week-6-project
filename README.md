@@ -51,7 +51,7 @@ $ CREATE DATABASE database-name WITH OWNER myuser;
 
 > Database file should look like this:
 ```shell
-$ postgres://myuser:mypassword@localhost:5432/database-name
+postgres://myuser:mypassword@localhost:5432/database-name
 ```
 
 >  Start the server:
