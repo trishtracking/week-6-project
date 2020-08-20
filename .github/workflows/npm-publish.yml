@@ -10,15 +10,30 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-        env:
-          TEST_DATABASE_URL: postgres://ezngannmgkfhab:213ebbcff6d14d7bdbc922620cae6cd80346082a5e74e4282332c0339dc1e3a4@ec2-54-247-122-209.eu-west-1.compute.amazonaws.com:5432/d2p8p6uo9o4bme
-      - run: npm i
-      - run: npm install --only=dev
-      - run: npm test
+   container-job:
+        runs-on: ubuntu-latest
+        container: node:10.18-jessie
+        services:
+            postgres:
+                image: postgres
+                env:
+                    POSTGRES_PASSWORD: postgres
+                options: >-
+                    --health-cmd pg_isready
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5:
+ 
+        steps:
+            - name: Check out repository code
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                node-version: 12
+              env:
+                TEST_DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgresd2p8p6uo9o4bme
+                CI: true
+            - run: npm i
+            - run: npm install --only=dev
+            - run: npm test
+
