@@ -1,4 +1,4 @@
-### COOKIES WEEK! 🍪 🥠
+### COOKIES WEEK! 🍪 🥠✨
 
 ---
 
@@ -6,7 +6,7 @@
 
 This week we aimed to learn about password management & encryption, authentication with JWT & cookies, setting up continuous integration and lastly but not least, creating our own promises! 
 
-# What is our project doing?!
+# What is our project doing?! 🤔🤩🌠
 
 This week's goal was to build a web app that authenticates users and stores user-specific data in a PostgreSQL database.
 
@@ -22,8 +22,12 @@ To top if off, only users can delete their own posts! 😉 🍹
 
 ![](https://i.imgur.com/zDmmAj3.png)
 
+## Heroku 🚀🚀🚀
 
-## Local installation
+- https://fortunes-and-better-cookies.herokuapp.com/
+
+
+## Local installation 💻
 
 ### Clone
 - Git clone this repo to your local machine
@@ -54,16 +58,16 @@ $ CREATE DATABASE database-name WITH OWNER myuser;
 postgres://myuser:mypassword@localhost:5432/database-name
 ```
 
->  Start the server:
-- `npm run start` 
+### Start the server:
+`npm run start` 
 
 
-### Run the tests
+### Run the tests 🏃‍♀️
 
 `npm run test` 
 
 
-## Our team 
+## Our team 🏆
 
 - Amber : deployment  🧙‍♂️
 - Shaya : facilitator  🧞‍♀️
@@ -71,7 +75,7 @@ postgres://myuser:mypassword@localhost:5432/database-name
 - Trish : deployment  🧙‍♂️
 
 
-## Our user stories 
+## Our user stories 🔖
 
 - As a visually impaired user I would like to be able to navigate the page
 - As a user, I want to: submit information to your site for anyone to see 
@@ -81,7 +85,7 @@ postgres://myuser:mypassword@localhost:5432/database-name
 - Stretch goal: I want to show the user when they are logged in!
 
 
-## Acceptance Criteria 
+## Acceptance Criteria ✔️
 
 - [x] Forms for users to sign up and log in
 - [x] A form for users to submit data only accessible to logged in users
@@ -93,7 +97,7 @@ postgres://myuser:mypassword@localhost:5432/database-name
 - [x] Not process user input as SQL commands
 - [x] Hidden environment variables (i.e. not on GitHub)
 
-## Tools/methods used
+## Tools/methods used ⛏️
 
 - heroku
 - figma
