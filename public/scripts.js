@@ -25,6 +25,10 @@ fetch("/read-fortune") //calls our fortune handler
 			location.href = "/form"
     })
     
+    buttons[2].addEventListener("click", () => {
+			location.href = "/all-fortunes"
+    })
+
     document.querySelector("#button-home").addEventListener("click", () => {
 			location.href = "/"
 		})

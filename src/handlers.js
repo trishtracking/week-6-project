@@ -279,6 +279,40 @@ function deleteHandler(request, response) {
 	//if not throw error
 }
 
+function allFortunesHandler(request, response) {
+	const filePath = path.join(__dirname, "..", "public", "list.html");
+
+	fs.readFile(filePath, "utf-8", (error, file) => {
+		if(error) {
+			response.writeHead(404, {
+				"content-type": "text/html"
+			});
+		response.end("<h1>Not found</h1>");
+		} else {
+		 return db.query("SELECT users.username, posts.text_content FROM users INNER JOIN posts ON users.id = posts.username_id")
+			  .then(dataObj => {
+				const post = dataObj.rows.map((entry) => {
+					return `<article class="post">
+					<h2 class="post-title">${entry.username}</h2>
+					<p class="post-message">${entry.text_content}</p>
+					<button class="delete-btn">Delete</button>
+				  </article>`;
+				  });
+
+				  const updatedList = file.replace(
+					`<!-- replace text here -->`,
+					post.join("\n")
+				  );
+				  response.writeHead(200, {
+					"content-type": "text/html"
+				  });
+				  // display newFile
+				  response.end(updatedList);
+				})
+			  };
+		})
+}
+
 module.exports = {
 	homeHandler,
 	missingHandler,
@@ -291,6 +325,7 @@ module.exports = {
 	loginHandler,
 	loginPageHandler,
 	signupPageHandler,
+	allFortunesHandler,
 	deleteHandler
 };
 
