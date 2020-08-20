@@ -90,6 +90,14 @@ function loginHandler(request, response) {
 	});
 }
 
+function logoutHandler(request, response) {
+	response.writeHeader(302, {
+		location: "/",
+		"Set-Cookie": "jwt=blah; Max-Age=0"
+	});
+	response.end();
+}
+
 function indexHandler(request, response) {
 		fs.readFile(path.join(__dirname, "..", "public", "index.html"), (error, file) => {
 			if (error) {
@@ -150,7 +158,7 @@ function createFortuneHandler(request, response) {
 					data.message,
 				])
 					.then(() => {
-						response.writeHead(302, { location: "/" });
+						response.writeHead(302, { location: "/main" });
 						response.end();
 					})
 					.catch((error) => {
@@ -220,6 +228,8 @@ function signupHandler(request, response) {
           response.writeHead(200, { "content-type": "text/html" });
           response.end(`
 			<h1>Thanks for signing up, ${data.username}</h1>
+			<br> 
+			<h2><a href="/login-page">Log in</a></h2>
           `);
         })
         .catch(error => {
@@ -250,6 +260,7 @@ function createUser(user) {
 		})
 	.catch((err) => console.log(err));
 };
+
 
 function deleteHandler(request, response) {
 	let body = "";
@@ -326,6 +337,7 @@ module.exports = {
 	loginPageHandler,
 	signupPageHandler,
 	allFortunesHandler,
-	deleteHandler
+	deleteHandler,
+	logoutHandler
 };
 

@@ -16,8 +16,9 @@
 
 		<figure> <img id="img-cookie" class="cookie" src="/public/images/fortune-cookie.png" alt="image of a fortune cookie" /> </figure>
 
-		<button type="submit">Read my fortune</button>
-		<button type="submit">Add my own saying</button>
+		<button type="submit" id="read-fortune">Read my fortune</button>
+		<button type="submit" id="add-form">Add my own saying</button>
+		<button type="button" id="log-out-button">Log me out</button>
     
     <figure>
 		<input
@@ -32,25 +33,7 @@
 		/>
       </figure>
 	</body>
-	<script>
-		let buttons = document.querySelectorAll("button");
-
-		buttons[0].addEventListener("click", () => {
-			location.href = "/read-fortune-page"
-		})
-
-		buttons[1].addEventListener("click", () => {
-			location.href = "/form"
-		})
-
-		document.querySelector("#button-home").addEventListener("click", () => {
-			location.href = "/"
-		})
-
-		document.querySelector("#img-cookie").addEventListener("click", () => {
-			location.href = "/read-fortune-page"
-		})
-
+	<script src="/public/main.js">
 	</script>
 
 </html>
