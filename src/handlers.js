@@ -3,6 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const db = require("./database/connection");
+const bcrypt = require("bcryptjs");
 
 function homeHandler(request, response) {
 	fs.readFile(path.join(__dirname, "..", "public", "main.html"), (error, file) => {
@@ -55,12 +56,12 @@ function createFortuneHandler(request, response) {
 		// INJECTION PROTECTION !!!!
 		const searchParams = new URLSearchParams(body); // turns form post string in to an object
 		const data = Object.fromEntries(searchParams);
-		const values = [data.name, data.message];
-		db.query("SELECT id FROM usernames WHERE name = ($1)", [data.name])
+		const currentUser = // extract logged-in users name 
+		db.query("SELECT id FROM users WHERE username = ($1)", [currentUser])
 			.then((result) => {
 				const inputID = result.rows[0].id;
 				console.log("input", typeof inputID);
-				db.query("INSERT INTO posts (user_id, text_content) VALUES (($1), ($2))", [
+				db.query("INSERT INTO posts (username_id, text_content) VALUES (($1), ($2))", [
 					inputID,
 					data.message,
 				])
@@ -116,12 +117,64 @@ function readFortuneHandler(request, response) {
 		});
 }
 
+
+// Week 6 
+
+function signupHandler(request, response) {
+	let body = "";
+	request.on("data", (chunk) => (body += chunk));
+	request.on("end", () => {
+		const searchParams = new URLSearchParams(body); // turns form post string in to an object
+		const data = Object.fromEntries(searchParams); 
+		// assumption: data = {username: xxx, password: xxx}
+		bcrypt
+        .genSalt(10) //generates a salt
+        .then(salt => bcrypt.hash(password, salt)) // generate a hash of the password and the salt
+        .then(hash => createUser({ username, password: hash })) //create a new user in the database with username and encrypted password 
+        .then(() => {
+          response.writeHead(200, { "content-type": "text/html" });
+          response.end(`
+            <h1>Thanks for signing up, ${email}</h1>
+          `);
+        })
+        .catch(error => {
+          console.error(error);
+          response.writeHead(500, { "content-type": "text/html" });
+          response.end(`
+            <h1>Something went wrong, sorry</h1>
+            <p>${error}</p> 
+          `);
+        });
+    })
+};
+
+function createUser(user) {
+	// return new Promise((resolve, reject) => {
+	db.query("SELECT * from USERS")
+		.then((data) => {
+			console.log("data", data)
+		  const existingUser = data.users.find(u => u.username === user.username); //check to see if there is already a user with this username in the database 
+		  if (existingUser) {
+			console.log(`${user.username} already exists`); //throw an error if there is already a user
+		  } else {
+			db.query(`INSERT INTO users(username, password) VALUES ($1, $2)`, [user.username, user.password])
+				.then(console.log("username and password added"))
+				.catch((err) => console.log(err));
+		   }
+		})
+	.catch((err) => console.log(err));
+};
+
+
+createUser({ username: "Hi there", password: "ergyufakrgsjkbthgjqr"});
+
 module.exports = {
 	homeHandler,
 	missingHandler,
 	createFortuneHandler,
 	formHandler,
 	readFortuneHandler,
-	readFortuneHtmlHandler
+	readFortuneHtmlHandler,
+	signupHandler
 };
 

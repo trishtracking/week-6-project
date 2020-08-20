@@ -2,20 +2,21 @@ BEGIN;
 
 DROP TABLE IF EXISTS posts, usernames CASCADE;
 
-CREATE TABLE usernames (
+CREATE TABLE users (
   id SERIAL PRIMARY KEY, 
-  name VARCHAR(255) NOT NULL
+  username VARCHAR(255) NOT NULL,
+  password VARCHAR(255)
 );
 
 CREATE TABLE posts (
   id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES usernames(id), --FK 
+  username_id INTEGER REFERENCES users(id), --FK 
   text_content TEXT
 );
 
 
 
-INSERT INTO usernames (name) VALUES -- automatically adds serial numbers 
+INSERT INTO users (username) VALUES -- automatically adds serial numbers 
   ('Aishah'), 
   ('Amber'),
   ('Azizi'),
@@ -35,7 +36,7 @@ INSERT INTO usernames (name) VALUES -- automatically adds serial numbers
   ('Trish')
 ;
 
-INSERT INTO posts (user_id, text_content) VALUES
+INSERT INTO posts (username_id, text_content) VALUES
   (1, 'Before FAC I was working on weekends at a coffee shop'),
   (1, 'I want to be a mermaid!'),
   (1, 'My superpower would be to learn anything through touch'),
