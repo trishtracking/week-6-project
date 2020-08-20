@@ -1,10 +1,7 @@
 const deleteButtons = document.querySelectorAll(".delete-btn");
-console.log("list.js connected");
-
 
 deleteButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
-        console.log("delete button called")
         const article = e.target.parentNode;//select the whole section of html that is associated with that button 
         const author = article.querySelector(".post-title").innerHTML;
         const saying = article.querySelector(".post-message").innerHTML;

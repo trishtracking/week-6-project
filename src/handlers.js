@@ -150,7 +150,7 @@ function createFortuneHandler(request, response) {
 					data.message,
 				])
 					.then(() => {
-						response.writeHead(302, { location: "/" });
+						response.writeHead(302, { location: "/all-fortunes" });
 						response.end();
 					})
 					.catch((error) => {
@@ -255,6 +255,10 @@ function deleteHandler(request, response) {
 	let sentInfo = "";
 	request.on("data", (chunk) => (sentInfo += chunk));
 	request.on("end", () => { //sentInfo = {saying: fershgk, author: agfreg}
+		if (request.headers.cookie !== undefined) {
+		// 	response.writeHead(400, {"content-type": "text/html"});//400 is a bad request 
+		// 	response.end(`<h1>You are not logged in!</h1><a href="/login.html>Login</a>`)
+		// } else {
 		sentInfo = JSON.parse(sentInfo);
 		const cookie = parse(request.headers.cookie); //get the request cookie (which contains a jwt of the user)
 		const loggedInUser = verify(cookie.jwt, process.env.SECRET); //see which user is logged in by decoding the cookie
@@ -272,6 +276,7 @@ function deleteHandler(request, response) {
 				 <h1>There's been a problem</h1>`);
 			 });
 		} //delete all from posts where saying 
+	 } 
 	})
 	// receive data from post request ({saying, author}) cookie= request.headers.cookie 
 	// use to extract the username from the jwt of the cookie 
