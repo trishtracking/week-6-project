@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-   container-job:
+    container-job:
         runs-on: ubuntu-latest
         container: node:10.18-jessie
         services:
@@ -22,7 +22,7 @@ jobs:
                     --health-cmd pg_isready
                     --health-interval 10s
                     --health-timeout 5s
-                    --health-retries 5:
+                    --health-retries 5
  
         steps:
             - name: Check out repository code
