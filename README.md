@@ -42,12 +42,17 @@ $ psql
 > Create database locally:
 ```shell
 $ CREATE USER myuser SUPERUSER PASSWORD 'mypassword';
-$ CREATE DATABASE cookies-and-fortune WITH OWNER myuser;
+$ CREATE DATABASE database-name WITH OWNER myuser;
 ```
 
 > Create .env file in project:
-- Add `DATABASE_URL` variable in your .env file and assign to initialised database (it should be 'postgres://myuser:mypassword@localhost:5432/cookies-and-fortune')
+- Add `DATABASE_URL` variable in your .env file and assign to initialised database
 - Add `SECRET` variable in your .env file (SECRET can just be a random string) 
+
+> Database file should look like this:
+```shell
+$ postgres://myuser:mypassword@localhost:5432/database-name
+```
 
 >  Start the server:
 - `npm run start` 
