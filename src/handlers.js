@@ -152,8 +152,9 @@ function createUser(user) {
 	// return new Promise((resolve, reject) => {
 	db.query("SELECT * from USERS")
 		.then((data) => {
-			console.log("data", data)
-		  const existingUser = data.users.find(u => u.username === user.username); //check to see if there is already a user with this username in the database 
+			data = data.rows;
+			console.log(data);
+		  const existingUser = data.find(u => u.username === user.username); //check to see if there is already a user with this username in the database 
 		  if (existingUser) {
 			console.log(`${user.username} already exists`); //throw an error if there is already a user
 		  } else {
@@ -164,9 +165,6 @@ function createUser(user) {
 		})
 	.catch((err) => console.log(err));
 };
-
-
-createUser({ username: "Hi there", password: "ergyufakrgsjkbthgjqr"});
 
 module.exports = {
 	homeHandler,
