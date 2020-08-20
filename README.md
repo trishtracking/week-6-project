@@ -134,7 +134,9 @@ postgres://myuser:mypassword@localhost:5432/database-name
 5:15 - 5:45 — Updated readme, deployment on heroku & GI actions (success!) We also made some final merges to the repo. (Mobbed) <br>
 
 We ended on a high with so many issues and all but one acceptance criteria completed! 🥂🥂🥂🥂 <br>
-_**GO GOD TEAM!!**_ 👑🙏🎉
+ <br>
+  <br>
+### _**GO GOD TEAM!!**_ 👑🙏🎉
 
 
 ## Acceptance Criteria ✔️
