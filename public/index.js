@@ -6,5 +6,5 @@ loginButton.addEventListener("click", () => {
 })
 
 signUp.addEventListener("click", () => {
-    location.href = "/signup";
+    location.href = "/signup-page";
 })

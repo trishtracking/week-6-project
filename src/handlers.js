@@ -18,7 +18,7 @@ function homeHandler(request, response) {
 	});
 }
 
-function signupHandler(request, response) {
+function signuphtmlHandler(request, response) {
 	fs.readFile(path.join(__dirname, "..", "public", "signup.html"), (error, file) => {
 		if (error) {
 			console.log(error);
@@ -164,16 +164,17 @@ function signupHandler(request, response) {
 	request.on("data", (chunk) => (body += chunk));
 	request.on("end", () => {
 		const searchParams = new URLSearchParams(body); // turns form post string in to an object
-		const data = Object.fromEntries(searchParams); 
+		const data = Object.fromEntries(searchParams);
+		console.log(data);
 		// assumption: data = {username: xxx, password: xxx}
 		bcrypt
         .genSalt(10) //generates a salt
-        .then(salt => bcrypt.hash(password, salt)) // generate a hash of the password and the salt
-        .then(hash => createUser({ username, password: hash })) //create a new user in the database with username and encrypted password 
+        .then(salt => bcrypt.hash(data.password, salt)) // generate a hash of the password and the salt
+        .then(hash => createUser({ username: data.username, password: hash })) //create a new user in the database with username and encrypted password 
         .then(() => {
           response.writeHead(200, { "content-type": "text/html" });
           response.end(`
-            <h1>Thanks for signing up, ${email}</h1>
+            <h1>Thanks for signing up, ${data.username}</h1>
           `);
         })
         .catch(error => {
@@ -214,6 +215,7 @@ module.exports = {
 	signupHandler,
 	indexHandler,
 	readFortuneHtmlHandler,
-	loginHandler
+	loginHandler,
+	signuphtmlHandler
 };
 

@@ -21,8 +21,10 @@ function router(request, response) {
     handlers.readFortuneHtmlHandler(request, response);
   } else if (url === "/login") { 
     loginHandler(request, response);
-  } else if (url === "/signup") { 
-    handlers.signupHandler(request, response);
+  } else if (url === "/signup-page") { 
+    handlers.signuphtmlHandler(request, response);
+  } else if (url === "/signup") {
+    handlers.signupHandler(request,response);
   } else if (url.includes('public')) {
     publicHandler(request, response);
    } else {
