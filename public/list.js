@@ -17,3 +17,11 @@ deleteButtons.forEach((button) => {
             .catch(err => console.error(err));
     });
 });
+
+document.querySelector("#log-out-button").addEventListener("click", () => {
+  location.href = "/logout"
+})
+
+document.querySelector("#form-add").addEventListener("click", () => {
+  location.href = "/form" 
+})

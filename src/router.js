@@ -29,6 +29,8 @@ function router(request, response) {
     handlers.signupHandler(request,response);
   } else if (url === "/delete") { //deletes posts 
     handlers.deleteHandler(request, response);
+   } else if (url === "/logout") { //deletes posts 
+    handlers.logoutHandler(request, response);
    } else if (url.includes('public')) { //helps read html, css and js files
     publicHandler(request, response);
    } else {
