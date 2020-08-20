@@ -1,0 +1,62 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			  <link href="https://fonts.googleapis.com/css2?family=Sniglet&display=swap" rel="stylesheet" />
+			  <link rel="stylesheet" href="/public/form.css">
+		<title>Add my own saying</title>
+	</head>
+	<body>
+		<h1>Fortune and Cookies</h1>  
+		<h2>Log in:</h2> 
+
+        <form method="POST" action="">
+            
+			<label for="username">
+                User name:
+                <span aria-hidden="true">*</span>
+            </label><br/>
+			
+			<input type="text" id="username" name="username" placeholder="" aria-label="Enter username" required/><br />
+      <br>
+			<label for="password">
+                Password:
+                <span aria-hidden="true">*</span>
+            </label><br/>
+
+            <div id="passwordRequirements">Your password needs to contain at least 7 characters, including at least one number.</div> 
+			<input
+				type="password"
+				id="password"
+				name="password"
+				placeholder=""
+                aria-label="Enter password"
+                required
+                aria-describedby="passwordRequirements passwordError"
+                pattern=".*\d.*"
+                minlength="7"
+            />
+            <div id="passwordError" class="error"> 
+                
+            </div><br/><br/>
+
+			<input type="submit" class="submit" value="Log in" />
+		</form>
+		<input
+				class="home"
+				id="button-home"
+				type="image"
+				src="/public/images/home-icon.png"
+				alt="Home button"
+				width="48"
+				height="48"
+				aria-label="Home Button"
+			/>
+	</body>
+<script src="/public/signup.js"></script> 
+	
+
+</html>
