@@ -219,7 +219,7 @@ function signupHandler(request, response) {
         .then(() => {
           response.writeHead(200, { "content-type": "text/html" });
           response.end(`
-            <h1>Thanks for signing up, ${data.username}</h1>
+			<h1>Thanks for signing up, ${data.username}</h1>
           `);
         })
         .catch(error => {
