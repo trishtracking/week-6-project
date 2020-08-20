@@ -145,10 +145,11 @@ postgres://myuser:mypassword@localhost:5432/database-name
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; — Other pair also successfully made the logout function, button and handlers! <br>
 5:15 - 5:45 — Updated readme, deployment on heroku & GI actions (success!) We also made some final merges to the repo. (Mobbed) <br>
 
-We ended on a high with so many issues and all but one acceptance criteria completed! 🥂🥂🥂🥂 <br>
+ _We ended on a high with so many issues and all but one acceptance criteria completed! 🥂🥂🥂🥂_
+ 
  <br>
-  <br>
-### _**GO GOD TEAM!!**_ 👑🙏🎉
+ 
+  _**GO GOD TEAM!!**_ 👑🙏🎉
 
  <br>
  
