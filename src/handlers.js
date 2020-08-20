@@ -219,7 +219,7 @@ function signupHandler(request, response) {
         .then(() => {
           response.writeHead(200, { "content-type": "text/html" });
           response.end(`
-            <h1>Thanks for signing up, ${data.username}</h1>
+			<h1>Thanks for signing up, ${data.username}</h1>
           `);
         })
         .catch(error => {
@@ -251,7 +251,27 @@ function createUser(user) {
 	.catch((err) => console.log(err));
 };
 
-function deleteHandler() {
+function deleteHandler(request, response) {
+	let body = "";
+	request.on("data", (chunk) => (body+=chunk));
+	request.on("end", (sentInfo) => { //sentInfo = {saying: fershgk, author: agfreg}
+		const cookie = request.headers.cookie; //get the request cookie (which contains a jwt of the user)
+		const loggedInUser = verify(cookie, process.env.SECRET); //see which user is logged in by decoding the cookie
+		if (loggedInUser === sentInfo.author) {
+			db.query("DELETE FROM posts WHERE text_content=($1)", [sentInfo.saying]) // `DELETE FROM table_name WHERE condition  
+			 .then( () => {
+				 response.writeHead(200, {"content-type": "text/html"});
+				 response.end(`
+				 <h1>Your fortune has been removed</h1>`);
+			 })
+			 .catch(error => {
+				 console.log(error)
+				 response.writeHead(400, {"content-type": "text/html"});//400 is a bad request 
+				 response.end(`
+				 <h1>There's been a problem</h1>`);
+			 });
+		} //delete all from posts where saying 
+	})
 	// receive data from post request ({saying, author}) cookie= request.headers.cookie 
 	// use to extract the username from the jwt of the cookie 
 	// check if the author of that saying is the same as the user (username is in the cookie)
@@ -305,6 +325,7 @@ module.exports = {
 	loginHandler,
 	loginPageHandler,
 	signupPageHandler,
-	allFortunesHandler
+	allFortunesHandler,
+	deleteHandler
 };
 
