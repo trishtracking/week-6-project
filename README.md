@@ -6,6 +6,8 @@
 
 This week we aimed to learn about password management & encryption, authentication with JWT & cookies, setting up continuous integration and lastly but not least, creating our own promises! 
 
+ <br>
+ 
 # What is our project doing?! 🤔🤩🌠
 
 This week's goal was to build a web app that authenticates users and stores user-specific data in a PostgreSQL database.
@@ -14,19 +16,26 @@ We wanted to follow our Week 5's project theme and build on top of it - essentia
 
 To top if off, only users can delete their own posts! 😉 🍹
 
+ <br>
+ 
 ## Schema 
-
+ 
 ![](https://i.imgur.com/jpVM1LS.png)
 
+ <br>
+ 
 ## Wireframe 
-
+ 
 ![](https://i.imgur.com/zDmmAj3.png)
-
+ 
+  <br>
+  
 ## Heroku 🚀🚀🚀
 
 - https://fortunes-and-better-cookies.herokuapp.com/
 
-
+ <br>
+ 
 ## Local installation 💻
 
 ### Clone
@@ -67,7 +76,8 @@ postgres://myuser:mypassword@localhost:5432/database-name
 
 `npm run test` 
 
-
+  <br>
+  
 ## Our team 🏆
 
 - Amber : deployment  🧙‍♂️
@@ -75,7 +85,8 @@ postgres://myuser:mypassword@localhost:5432/database-name
 - Terrence : quality  🕵
 - Trish : deployment  🧙‍♂️
 
-
+  <br>
+  
 ## Our user stories 🔖
 
 - As a visually impaired user I would like to be able to navigate the page
@@ -85,7 +96,8 @@ postgres://myuser:mypassword@localhost:5432/database-name
 - Stretch goal: As a FAC20 member, I want to search through the wisdom of my cohort for specific people's answers
 - Stretch goal: I want to show the user when they are logged in!
 
-
+  <br>
+  
 ## 📽️ 🚧 Project timeline 📽️ 🚧
 
 ### Day 1 
@@ -138,7 +150,8 @@ We ended on a high with so many issues and all but one acceptance criteria compl
   <br>
 ### _**GO GOD TEAM!!**_ 👑🙏🎉
 
-
+ <br>
+ 
 ## Acceptance Criteria ✔️
 
 - [x] Forms for users to sign up and log in
@@ -151,6 +164,8 @@ We ended on a high with so many issues and all but one acceptance criteria compl
 - [x] Not process user input as SQL commands
 - [x] Hidden environment variables (i.e. not on GitHub)
 
+ <br>
+ 
 ## Tools/methods used ⛏️
 
 - heroku
@@ -159,5 +174,7 @@ We ended on a high with so many issues and all but one acceptance criteria compl
 - postgres 
 - lots and lots of hard work and grit!!! 💪
 
+ <br>
+ 
 #### Project presentation link: to be updated! ⏰
 <!--- () ---!>
