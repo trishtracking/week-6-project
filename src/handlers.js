@@ -73,7 +73,7 @@ function loginHandler(request, response) {
 		  console.log(decoded) // qwerty
       		response.writeHead(302, {
 			'Location': '/main',
-			'Set-Cookie': `jwt=${cookie}; HttpOnly`
+			'Set-Cookie': `jwt=${cookie}; HTTPOnly`
 			}
       		);
       		return response.end();
