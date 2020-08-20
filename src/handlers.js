@@ -56,18 +56,38 @@ function loginHandler(request, response) {
 	request.on("data", (chunk) => (body += chunk));
 	request.on("end", () => {
 		const searchParams = new URLSearchParams(body); // turns form post string in to an object
-		const user = Object.fromEntries(searchParams);
-		console.log(user);
-		const cookie = sign(user, process.env.SECRET);
-      response.writeHead(
-        302,
-        {
-          'Location': '/main',
-          'Set-Cookie': `jwt=${cookie}; HttpOnly`
-        }
-      );
-      return response.end();
-	})
+		const user = Object.fromEntries(searchParams); //user {username: xxx, password: xxx}
+		console.log("user l60", user)
+		db.query("SELECT * from USERS WHERE username = ($1)", [user.username])
+		.then((data) => {
+			data = data.rows[0]; //{id:dgsd , username: rshuigs, password: dfsg}
+			console.log("data",data)
+			console.log(user.password, data.password)
+			console.log(typeof user.password, typeof data.password)
+			return bcrypt.compare(user.password, data.password)
+		})
+        .then(compareResult => {
+		  if (!compareResult) throw new Error("Password mismatch");
+		  const cookie = sign(user.username, process.env.SECRET);
+		  const decoded = verify(cookie, process.env.SECRET);
+		  console.log(decoded) // qwerty
+      		response.writeHead(302, {
+			'Location': '/main',
+			'Set-Cookie': `jwt=${cookie}; HttpOnly`
+			}
+      		);
+      		return response.end();
+			})
+
+        .catch(error => {
+          console.error(error);
+          response.writeHead(401, { "content-type": "text/html" });
+          response.end(`
+            <h1>Something went wrong, sorry</h1>
+            <p>User not found</p>
+          `);
+		});
+	});
 }
 
 function indexHandler(request, response) {
@@ -230,6 +250,14 @@ function createUser(user) {
 		})
 	.catch((err) => console.log(err));
 };
+
+function deleteHandler() {
+	// receive data from post request ({saying, author}) cookie= request.headers.cookie 
+	// use to extract the username from the jwt of the cookie 
+	// check if the author of that saying is the same as the user (username is in the cookie)
+	// if it's the same, make a db.query to remove that saying 
+	//if not throw error
+}
 
 module.exports = {
 	homeHandler,
