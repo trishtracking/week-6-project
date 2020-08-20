@@ -19,10 +19,14 @@ function router(request, response) {
     handlers.allFortunesHandler(request, response);
   } else if (url === "/read-fortune-page") {
     handlers.readFortuneHtmlHandler(request, response);
-  } else if (url === "/login") { //login
-    loginHandler(request, response);
-  } else if (url === "/signup") { //signup
-    handlers.signupHandler(request, response);
+  } else if (url === "/login-page") { 
+    handlers.loginPageHandler(request, response);
+  } else if (url === "/login") {
+    handlers.loginHandler(request, response);
+  }else if (url === "/signup-page") { 
+    handlers.signupPageHandler(request, response);
+  } else if (url === "/signup") {
+    handlers.signupHandler(request,response);
   } else if (url.includes('public')) {
     publicHandler(request, response);
    } else {

@@ -2,9 +2,9 @@ const loginButton = document.querySelector("#log-in")
 const signUp = document.querySelector("#sign-up")
 
 loginButton.addEventListener("click", () => {
-    location.href = "/login";
+    location.href = "/login-page";
 })
 
 signUp.addEventListener("click", () => {
-    location.href = "/signup";
+    location.href = "/signup-page";
 })

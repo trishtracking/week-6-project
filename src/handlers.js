@@ -3,6 +3,14 @@
 const fs = require("fs");
 const path = require("path");
 const db = require("./database/connection");
+const bcrypt = require("bcryptjs");
+const { parse } = require('cookie');
+const { sign, verify } = require('jsonwebtoken');
+const dotenv = require("dotenv");
+// load the environment variables from the ".env" file
+dotenv.config();
+
+const SECRET = 'poiugyfguhijokpkoihugyfyguhijo'; //place in env variables then refer to as process.env.SECRET
 
 function homeHandler(request, response) {
 	fs.readFile(path.join(__dirname, "..", "public", "main.html"), (error, file) => {
@@ -17,7 +25,7 @@ function homeHandler(request, response) {
 	});
 }
 
-function signupHandler(request, response) {
+function signupPageHandler(request, response) {
 	fs.readFile(path.join(__dirname, "..", "public", "signup.html"), (error, file) => {
 		if (error) {
 			console.log(error);
@@ -28,6 +36,38 @@ function signupHandler(request, response) {
 			response.end(file);
 		}
 	});
+}
+
+function loginPageHandler(request, response) {
+	fs.readFile(path.join(__dirname, "..", "public", "login.html"), (error, file) => {
+		if (error) {
+			console.log(error);
+			response.writeHead(404, { "content-type": "text/html" });
+			response.end("<h1> Not Found </h1>");
+		} else {
+			response.writeHead(200, { "content-type": "text/html" });
+			response.end(file);
+		}
+	});
+}
+
+function loginHandler(request, response) {
+	let body = "";
+	request.on("data", (chunk) => (body += chunk));
+	request.on("end", () => {
+		const searchParams = new URLSearchParams(body); // turns form post string in to an object
+		const user = Object.fromEntries(searchParams);
+		console.log(user);
+		const cookie = sign(user, process.env.SECRET);
+      response.writeHead(
+        302,
+        {
+          'Location': '/main',
+          'Set-Cookie': `jwt=${cookie}; HttpOnly`
+        }
+      );
+      return response.end();
+	})
 }
 
 function indexHandler(request, response) {
@@ -80,13 +120,12 @@ function createFortuneHandler(request, response) {
 	request.on("end", () => {
 		// INJECTION PROTECTION !!!!
 		const searchParams = new URLSearchParams(body); // turns form post string in to an object
-		const data = Object.fromEntries(searchParams);
-		const values = [data.name, data.message];
-		db.query("SELECT id FROM usernames WHERE name = ($1)", [data.name])
+		const data = Object.fromEntries(searchParams); // extract logged-in users name 
+		db.query("SELECT id FROM users WHERE username = ($1)", [data.name])
 			.then((result) => {
 				const inputID = result.rows[0].id;
 				console.log("input", typeof inputID);
-				db.query("INSERT INTO posts (user_id, text_content) VALUES (($1), ($2))", [
+				db.query("INSERT INTO posts (username_id, text_content) VALUES (($1), ($2))", [
 					inputID,
 					data.message,
 				])
@@ -142,6 +181,56 @@ function readFortuneHandler(request, response) {
 		});
 }
 
+
+// Week 6 
+
+function signupHandler(request, response) {
+	let body = "";
+	request.on("data", (chunk) => (body += chunk));
+	request.on("end", () => {
+		const searchParams = new URLSearchParams(body); // turns form post string in to an object
+		const data = Object.fromEntries(searchParams);
+		console.log(data);
+		// assumption: data = {username: xxx, password: xxx}
+		bcrypt
+        .genSalt(10) //generates a salt
+        .then(salt => bcrypt.hash(data.password, salt)) // generate a hash of the password and the salt
+        .then(hash => createUser({ username: data.username, password: hash })) //create a new user in the database with username and encrypted password 
+        .then(() => {
+          response.writeHead(200, { "content-type": "text/html" });
+          response.end(`
+            <h1>Thanks for signing up, ${data.username}</h1>
+          `);
+        })
+        .catch(error => {
+          console.error(error);
+          response.writeHead(500, { "content-type": "text/html" });
+          response.end(`
+            <h1>Something went wrong, sorry</h1>
+            <p>${error}</p> 
+          `);
+        });
+    })
+};
+
+function createUser(user) {
+	// return new Promise((resolve, reject) => {
+	db.query("SELECT * from USERS")
+		.then((data) => {
+			data = data.rows;
+			console.log(data);
+		  const existingUser = data.find(u => u.username === user.username); //check to see if there is already a user with this username in the database 
+		  if (existingUser) {
+			console.log(`${user.username} already exists`); //throw an error if there is already a user
+		  } else {
+			db.query(`INSERT INTO users(username, password) VALUES ($1, $2)`, [user.username, user.password])
+				.then(console.log("username and password added"))
+				.catch((err) => console.log(err));
+		   }
+		})
+	.catch((err) => console.log(err));
+};
+
 module.exports = {
 	homeHandler,
 	missingHandler,
@@ -150,6 +239,9 @@ module.exports = {
 	readFortuneHandler,
 	signupHandler,
 	indexHandler,
-	readFortuneHtmlHandler
+	readFortuneHtmlHandler,
+	loginHandler,
+	loginPageHandler,
+	signupPageHandler
 };
 
