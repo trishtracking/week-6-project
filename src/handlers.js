@@ -4,6 +4,13 @@ const fs = require("fs");
 const path = require("path");
 const db = require("./database/connection");
 const bcrypt = require("bcryptjs");
+const { parse } = require('cookie');
+const { sign, verify } = require('jsonwebtoken');
+const dotenv = require("dotenv");
+// load the environment variables from the ".env" file
+dotenv.config();
+
+const SECRET = 'poiugyfguhijokpkoihugyfyguhijo'; //place in env variables then refer to as process.env.SECRET
 
 function homeHandler(request, response) {
 	fs.readFile(path.join(__dirname, "..", "public", "main.html"), (error, file) => {
@@ -18,7 +25,7 @@ function homeHandler(request, response) {
 	});
 }
 
-function signuphtmlHandler(request, response) {
+function signupPageHandler(request, response) {
 	fs.readFile(path.join(__dirname, "..", "public", "signup.html"), (error, file) => {
 		if (error) {
 			console.log(error);
@@ -31,7 +38,7 @@ function signuphtmlHandler(request, response) {
 	});
 }
 
-function loginHandler(request, response) {
+function loginPageHandler(request, response) {
 	fs.readFile(path.join(__dirname, "..", "public", "login.html"), (error, file) => {
 		if (error) {
 			console.log(error);
@@ -42,6 +49,25 @@ function loginHandler(request, response) {
 			response.end(file);
 		}
 	});
+}
+
+function loginHandler(request, response) {
+	let body = "";
+	request.on("data", (chunk) => (body += chunk));
+	request.on("end", () => {
+		const searchParams = new URLSearchParams(body); // turns form post string in to an object
+		const user = Object.fromEntries(searchParams);
+		console.log(user);
+		const cookie = sign(user, process.env.SECRET);
+      response.writeHead(
+        302,
+        {
+          'Location': '/main',
+          'Set-Cookie': `jwt=${cookie}; HttpOnly`
+        }
+      );
+      return response.end();
+	})
 }
 
 function indexHandler(request, response) {
@@ -94,9 +120,8 @@ function createFortuneHandler(request, response) {
 	request.on("end", () => {
 		// INJECTION PROTECTION !!!!
 		const searchParams = new URLSearchParams(body); // turns form post string in to an object
-		const data = Object.fromEntries(searchParams);
-		const currentUser = // extract logged-in users name 
-		db.query("SELECT id FROM users WHERE username = ($1)", [currentUser])
+		const data = Object.fromEntries(searchParams); // extract logged-in users name 
+		db.query("SELECT id FROM users WHERE username = ($1)", [data.name])
 			.then((result) => {
 				const inputID = result.rows[0].id;
 				console.log("input", typeof inputID);
@@ -216,6 +241,7 @@ module.exports = {
 	indexHandler,
 	readFortuneHtmlHandler,
 	loginHandler,
-	signuphtmlHandler
+	loginPageHandler,
+	signupPageHandler
 };
 
