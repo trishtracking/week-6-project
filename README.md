@@ -33,6 +33,7 @@ We used all this database and node wizardry to create a page where FAC20 submit 
 -- `CREATE DATABASE learn_node_postgres WITH OWNER myuser;`
 - Create .env file in project
 - Add `DATABASE_URL` variable in your .env file and assign to initialised database
+- Add `SECRET` variable in your .env file (SECRET can just be a random string) 
 - `npm run start` will start the server 
 
 

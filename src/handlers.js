@@ -158,7 +158,7 @@ function createFortuneHandler(request, response) {
 					data.message,
 				])
 					.then(() => {
-						response.writeHead(302, { location: "/main" });
+						response.writeHead(302, { location: "/all-fortunes" });
 						response.end();
 					})
 					.catch((error) => {
@@ -263,11 +263,16 @@ function createUser(user) {
 
 
 function deleteHandler(request, response) {
-	let body = "";
-	request.on("data", (chunk) => (body+=chunk));
-	request.on("end", (sentInfo) => { //sentInfo = {saying: fershgk, author: agfreg}
-		const cookie = request.headers.cookie; //get the request cookie (which contains a jwt of the user)
-		const loggedInUser = verify(cookie, process.env.SECRET); //see which user is logged in by decoding the cookie
+	let sentInfo = "";
+	request.on("data", (chunk) => (sentInfo += chunk));
+	request.on("end", () => { //sentInfo = {saying: fershgk, author: agfreg}
+		if (request.headers.cookie !== undefined) {
+		// 	response.writeHead(400, {"content-type": "text/html"});//400 is a bad request 
+		// 	response.end(`<h1>You are not logged in!</h1><a href="/login.html>Login</a>`)
+		// } else {
+		sentInfo = JSON.parse(sentInfo);
+		const cookie = parse(request.headers.cookie); //get the request cookie (which contains a jwt of the user)
+		const loggedInUser = verify(cookie.jwt, process.env.SECRET); //see which user is logged in by decoding the cookie
 		if (loggedInUser === sentInfo.author) {
 			db.query("DELETE FROM posts WHERE text_content=($1)", [sentInfo.saying]) // `DELETE FROM table_name WHERE condition  
 			 .then( () => {
@@ -282,6 +287,7 @@ function deleteHandler(request, response) {
 				 <h1>There's been a problem</h1>`);
 			 });
 		} //delete all from posts where saying 
+	 } 
 	})
 	// receive data from post request ({saying, author}) cookie= request.headers.cookie 
 	// use to extract the username from the jwt of the cookie 
@@ -324,6 +330,7 @@ function allFortunesHandler(request, response) {
 		})
 }
 
+
 module.exports = {
 	homeHandler,
 	missingHandler,
@@ -340,4 +347,5 @@ module.exports = {
 	deleteHandler,
 	logoutHandler
 };
+
 
