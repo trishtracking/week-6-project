@@ -1,17 +1,22 @@
-const deleteButtons = querySelectorAll(".delete-btn");
+const deleteButtons = document.querySelectorAll(".delete-btn");
+console.log("list.js connected");
 
-deleteButtons.addEventListener("click", (e) => {
-    const article = e.target.parentElement;//select the whole section of html that is associated with that button 
-    const author = article.querySelector(".post-title").text_content;
-    const saying = article.querySelector(".post-message").text_content;
-    const sendData = {saying: saying, author: author};
-    fetch("/delete", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: sendData,
-      })
-        .then(location.reload())
-        .catch(err => console.error(err));
+
+deleteButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+        console.log("delete button called")
+        const article = e.target.parentNode;//select the whole section of html that is associated with that button 
+        const author = article.querySelector(".post-title").innerHTML;
+        const saying = article.querySelector(".post-message").innerHTML;
+        const sendData = {saying: saying, author: author};
+        fetch("/delete", {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(sendData),
+          })
+            .then(location.reload())
+            .catch(err => console.error(err));
+    });
 });

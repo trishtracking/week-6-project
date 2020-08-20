@@ -252,11 +252,12 @@ function createUser(user) {
 };
 
 function deleteHandler(request, response) {
-	let body = "";
-	request.on("data", (chunk) => (body+=chunk));
-	request.on("end", (sentInfo) => { //sentInfo = {saying: fershgk, author: agfreg}
-		const cookie = request.headers.cookie; //get the request cookie (which contains a jwt of the user)
-		const loggedInUser = verify(cookie, process.env.SECRET); //see which user is logged in by decoding the cookie
+	let sentInfo = "";
+	request.on("data", (chunk) => (sentInfo += chunk));
+	request.on("end", () => { //sentInfo = {saying: fershgk, author: agfreg}
+		sentInfo = JSON.parse(sentInfo);
+		const cookie = parse(request.headers.cookie); //get the request cookie (which contains a jwt of the user)
+		const loggedInUser = verify(cookie.jwt, process.env.SECRET); //see which user is logged in by decoding the cookie
 		if (loggedInUser === sentInfo.author) {
 			db.query("DELETE FROM posts WHERE text_content=($1)", [sentInfo.saying]) // `DELETE FROM table_name WHERE condition  
 			 .then( () => {
@@ -313,6 +314,7 @@ function allFortunesHandler(request, response) {
 		})
 }
 
+
 module.exports = {
 	homeHandler,
 	missingHandler,
@@ -328,4 +330,5 @@ module.exports = {
 	allFortunesHandler,
 	deleteHandler
 };
+
 

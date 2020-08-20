@@ -28,7 +28,7 @@ function router(request, response) {
   } else if (url === "/signup") { // called when you click submit for sign-up form
     handlers.signupHandler(request,response);
   } else if (url === "/delete") { //deletes posts 
-    deleteHandler(request, response);
+    handlers.deleteHandler(request, response);
    } else if (url.includes('public')) { //helps read html, css and js files
     publicHandler(request, response);
    } else {
