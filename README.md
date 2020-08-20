@@ -6,39 +6,50 @@
 
 This week we aimed to learn about password management & encryption, authentication with JWT & cookies, setting up continuous integration and lastly but not least, creating our own promises! 
 
-- Designing and documenting a database schema
-- Create a relational database
-- Read and write SQL queries 
-- Avoid SQL injection vulnerabilities
-- Handle node errors 
-- Testing SQL and servers 
+# What is our project doing?!
 
-We used all this database and node wizardry to create a page where FAC20 submit their own quotes and wisdom, and receive a cookie containing the wisdom of others! 
+This week's goal was to build a web app that authenticates users and stores user-specific data in a PostgreSQL database. We wanted to follow our Week 5's project theme and build on top of it - essentially, users can login to create a new fortune cookie 'saying', submit it to the main page and then view all sayings. To top if off, only users can delete their own posts! 😉 🍹
 
 ## Schema 
 
-![](https://i.imgur.com/PxINJD5.png)
+![](https://i.imgur.com/jpVM1LS.png)
 
 ## Wireframe 
 
 ![](https://i.imgur.com/zDmmAj3.png)
 
 
-## If you want to install locally rather than using the heroku link 
+## Local installation
 
-- Git clone this repo
-- Run `npm install` to set up node modules
--- enter `psql`
--- `CREATE USER myuser SUPERUSER PASSWORD 'mypassword';`
--- `CREATE DATABASE learn_node_postgres WITH OWNER myuser;`
-- Create .env file in project
-- Add `DATABASE_URL` variable in your .env file and assign to initialised database 
-* It should look like this: `DATABASE_URL='postgres://myuser:mypassword@localhost:5432/learn_node_postgres'`*
+### Clone
+- Git clone this repo to your local machine
+
+### Setup 
+> Set up node modules:
+```shell
+$ npm install
+```
+
+> Move into psql:
+```shell
+$ psql
+```
+
+> Create database locally:
+```shell
+$ CREATE USER myuser SUPERUSER PASSWORD 'mypassword';
+$ CREATE DATABASE learn_node_postgres WITH OWNER myuser;
+```
+
+> Create .env file in project:
+- Add `DATABASE_URL` variable in your .env file and assign to initialised database
 - Add `SECRET` variable in your .env file (SECRET can just be a random string) 
-- `npm run start` will start the server 
+
+>  Start the server:
+- `npm run start` 
 
 
-### For the tests -- 
+### Run the tests
 
 `npm run test` 
 
@@ -63,15 +74,15 @@ We used all this database and node wizardry to create a page where FAC20 submit 
 
 ## Acceptance Criteria 
 
-- [ ] Forms for users to sign up and log in
-- [ ] A form for users to submit data only accessible to logged in users
-- [ ] A page showing all the data
-- [ ] A way for logged in users to delete their own data
-- [ ] Semantic form elements with correctly associated labels
-- [ ] A Postgres database hosted on Heroku
+- [x] Forms for users to sign up and log in
+- [x] A form for users to submit data only accessible to logged in users
+- [x] A page showing all the data
+- [x] A way for logged in users to delete their own data
+- [x] Semantic form elements with correctly associated labels
+- [x] A Postgres database hosted on Heroku
 - [ ] Tests for server routes and database access
 - [x] Not process user input as SQL commands
-- [ ] Hidden environment variables (i.e. not on GitHub)
+- [x] Hidden environment variables (i.e. not on GitHub)
 
 ## Tools/methods used
 
@@ -79,6 +90,7 @@ We used all this database and node wizardry to create a page where FAC20 submit 
 - figma
 - dbdiagram
 - postgres 
+- lots and lots of hard work and grit!!! 💪
 
-#### Project presentation link: to be updated 
+#### Project presentation link: to be updated! ⏰
 <!--- () ---!>
