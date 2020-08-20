@@ -8,7 +8,11 @@ This week we aimed to learn about password management & encryption, authenticati
 
 # What is our project doing?!
 
-This week's goal was to build a web app that authenticates users and stores user-specific data in a PostgreSQL database. We wanted to follow our Week 5's project theme and build on top of it - essentially, users can login to create a new fortune cookie 'saying', submit it to the main page and then view all sayings. To top if off, only users can delete their own posts! 😉 🍹
+This week's goal was to build a web app that authenticates users and stores user-specific data in a PostgreSQL database.
+
+We wanted to follow our Week 5's project theme and build on top of it - essentially, users can login to create a new fortune cookie 'saying', submit it to the main page and then view all sayings. 🍪 🍴
+
+To top if off, only users can delete their own posts! 😉 🍹
 
 ## Schema 
 
