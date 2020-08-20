@@ -27,7 +27,9 @@ function router(request, response) {
     handlers.signupPageHandler(request, response);
   } else if (url === "/signup") { // called when you click submit for sign-up form
     handlers.signupHandler(request,response);
-  } else if (url.includes('public')) { //helps read html, css and js files
+  } else if (url === "/delete") { //deletes posts 
+    deleteHandler(request, response);
+   } else if (url.includes('public')) { //helps read html, css and js files
     publicHandler(request, response);
    } else {
     handlers.missingHandler(request, response);
