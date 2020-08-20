@@ -58,7 +58,8 @@ $ CREATE DATABASE database-name WITH OWNER myuser;
 postgres://myuser:mypassword@localhost:5432/database-name
 ```
 
-### Start the server:
+### Start the server 🖨️
+
 `npm run start` 
 
 
@@ -83,6 +84,57 @@ postgres://myuser:mypassword@localhost:5432/database-name
 - As a user, I want to: be the only person allowed to delete my stuff
 - Stretch goal: As a FAC20 member, I want to search through the wisdom of my cohort for specific people's answers
 - Stretch goal: I want to show the user when they are logged in!
+
+
+## 📽️ 🚧 Project timeline 📽️ 🚧
+
+### Day 1 
+
+12 - 12:10 — Quick sketch-up of user-journey on prebuilt Figma wireframe for existing & new pages <br>
+12:10 - 12:30 — Attempt #1 at GI actions 😅 <br>
+12:30 - 12:40 — Reviewing previous week's SGCs <br>
+12:40 - 1pm — Cloned wk5's repo into new repo & named handlers for the new pages (Mobbed so we knew the function names when we split off later!) <br>
+
+> _Off to lunch_ 🍎🥪 
+
+2 - 2:30 — Created new Project board, added issues & user stories  <br>
+2:30 - 3:30 — First pair split off! One worked on the sign-up handlers while the other created the new pages' HTML skeletons 🦴  <br>
+
+> _5 minute break!_ 💆 
+
+3:35 - 4pm — Updated schema (Mobbing)  <br>
+4 - 4:30 — Swapped pairs! Created .env file, connected to DB and attempted to debug (Shaving the yak here 🦙)  <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; — Other pair sorted the sign-up form's client-side validation/authentication!  <br>
+
+### Day 2
+
+10:10 - 10:20 — Updated ourselves on current achievements and next steps, reallocated pairs <br>
+10:20 - 11am — One pair worked on testing the sign-up handler whilst fixing more bugs (🦙); the other pair was sorting out the confusing router names!! 😵💫 <br>
+
+> _5 minute STANDUP!_ 🧍
+
+11 - 12:05 — Same pair worked on the login handler, other same pair asked for help on routers but solution didn't work so was back to square one! 🥺 <br>
+12:05 - 12:30 — Each pair performed a quick code walkthrough & managed to fix the problem one pair was having w/ routers, waheeee !👏🥂
+12:30 - 1pm — Updated the project board along w/ adding some new issues! (Mobbed) <br>
+
+> _Off to lunch_ 🍎🥪 
+
+2 - 2:10 — Scrum updated mentors on team's current situation and next steps; did a quick 5 min stretch video together 🧘 <br>
+2:10 - 2:30 — Pseudo code for the delete handler (Mobbed) <br>
+2:30 - 4 — One pair created the list page's html, css & figured out how to display the user input's new schema data <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; — Other pair built the delete handler & the event listener for the delete button  <br>
+4 - 4:20 — Delete handler bugs, yak shaving again!! (🦙) (Mobbed) <br>
+
+> _5 minute STANDUP!_ 🧍
+
+> _5 minute break!_ 💆 
+
+4:30 - 5:15 —  One pair fixed and got the delete handler up and running <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; — Other pair also successfully made the logout function, button and handlers! <br>
+5:15 - 5:45 — Updated readme, deployment on heroku & GI actions (success!) We also made some final merges to the repo. (Mobbed) <br>
+
+We ended on a high with so many issues and all but one acceptance criteria completed! 🥂🥂🥂🥂 <br>
+_**GO GOD TEAM!!**_ 👑🙏🎉
 
 
 ## Acceptance Criteria ✔️
