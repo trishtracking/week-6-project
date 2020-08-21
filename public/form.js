@@ -17,7 +17,8 @@ function getUsername() {
       })
       .then( res => res.json())
      .then((res) => {
-         username.textContent=res;
+        //  username.textContent=res;
+         username.value=res;
      })
      .catch((err) => console.log(error));
 }
