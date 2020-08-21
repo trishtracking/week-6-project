@@ -57,13 +57,9 @@ function loginHandler(request, response) {
 	request.on("end", () => {
 		const searchParams = new URLSearchParams(body); // turns form post string in to an object
 		const user = Object.fromEntries(searchParams); //user {username: xxx, password: xxx}
-		console.log("user l60", user)
 		db.query("SELECT * from USERS WHERE username = ($1)", [user.username])
 		.then((data) => {
 			data = data.rows[0]; //{id:dgsd , username: rshuigs, password: dfsg}
-			console.log("data",data)
-			console.log(user.password, data.password)
-			console.log(typeof user.password, typeof data.password)
 			return bcrypt.compare(user.password, data.password)
 		})
         .then(compareResult => {
@@ -296,6 +292,19 @@ function deleteHandler(request, response) {
 	//if not throw error
 }
 
+function loggedInUserHandler(request, response) {
+		if (request.headers.cookie !== undefined) {
+		// 	response.writeHead(400, {"content-type": "text/html"});//400 is a bad request 
+		// 	response.end(`<h1>You are not logged in!</h1><a href="/login.html>Login</a>`)
+		// } else {
+		const cookie = parse(request.headers.cookie); //get the request cookie (which contains a jwt of the user)
+		const loggedInUser = verify(cookie.jwt, process.env.SECRET); //see which user is logged in by decoding the cookie
+		response.writeHead(200, {"content-type": "text/html"});
+		response.end(JSON.stringify(loggedInUser));
+		}
+}
+
+
 function allFortunesHandler(request, response) {
 	const filePath = path.join(__dirname, "..", "public", "list.html");
 
@@ -306,7 +315,7 @@ function allFortunesHandler(request, response) {
 			});
 		response.end("<h1>Not found</h1>");
 		} else {
-		 return db.query("SELECT users.username, posts.text_content FROM users INNER JOIN posts ON users.id = posts.username_id")
+		 return db.query("SELECT users.username, posts.text_content FROM users INNER JOIN posts ON users.id = posts.username_id ORDER BY posts.id DESC")
 			  .then(dataObj => {
 				const post = dataObj.rows.map((entry) => {
 					return `<article class="post">
@@ -345,7 +354,8 @@ module.exports = {
 	signupPageHandler,
 	allFortunesHandler,
 	deleteHandler,
-	logoutHandler
+	logoutHandler,
+	loggedInUserHandler
 };
 
 
