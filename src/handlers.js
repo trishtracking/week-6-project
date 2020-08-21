@@ -296,6 +296,24 @@ function deleteHandler(request, response) {
 	//if not throw error
 }
 
+function loggedInUserHandler(request, response) {
+	let sentInfo = "";
+	request.on("data", (chunk) => (sentInfo += chunk));
+	request.on("end", () => { //sentInfo = {saying: fershgk, author: agfreg}
+		if (request.headers.cookie !== undefined) {
+		// 	response.writeHead(400, {"content-type": "text/html"});//400 is a bad request 
+		// 	response.end(`<h1>You are not logged in!</h1><a href="/login.html>Login</a>`)
+		// } else {
+		sentInfo = JSON.parse(sentInfo);
+		const cookie = parse(request.headers.cookie); //get the request cookie (which contains a jwt of the user)
+		const loggedInUser = verify(cookie.jwt, process.env.SECRET); //see which user is logged in by decoding the cookie
+		response.writeHead(200, {"content-type": "text/html"});
+		response.end(loggedInUser);
+		}
+	})
+}
+
+
 function allFortunesHandler(request, response) {
 	const filePath = path.join(__dirname, "..", "public", "list.html");
 
@@ -306,7 +324,7 @@ function allFortunesHandler(request, response) {
 			});
 		response.end("<h1>Not found</h1>");
 		} else {
-		 return db.query("SELECT users.username, posts.text_content FROM users INNER JOIN posts ON users.id = posts.username_id")
+		 return db.query("SELECT users.username, posts.text_content FROM users INNER JOIN posts ON users.id = posts.username_id ORDER BY posts.id DESC")
 			  .then(dataObj => {
 				const post = dataObj.rows.map((entry) => {
 					return `<article class="post">
@@ -345,7 +363,8 @@ module.exports = {
 	signupPageHandler,
 	allFortunesHandler,
 	deleteHandler,
-	logoutHandler
+	logoutHandler,
+	loggedInUserHandler
 };
 
 
