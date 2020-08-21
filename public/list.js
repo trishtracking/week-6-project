@@ -25,3 +25,7 @@ document.querySelector("#log-out-button").addEventListener("click", () => {
 document.querySelector("#form-add").addEventListener("click", () => {
   location.href = "/form" 
 })
+
+document.querySelector("#button-home").addEventListener("click", () => {
+  location.href = "/main" 
+})

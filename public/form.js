@@ -15,10 +15,11 @@ function getUsername() {
           "Content-Type": "application/json",
         }
       })
+      .then( res => res.json())
      .then((res) => {
-         username.innerHTML=res;
+         username.textContent=res;
      })
-     .catch((err) => conmouseleave.log(error));
+     .catch((err) => console.log(error));
 }
 
-getUsername;
+getUsername();

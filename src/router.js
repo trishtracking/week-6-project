@@ -32,7 +32,7 @@ function router(request, response) {
    } else if (url === "/logout") { //deletes posts 
     handlers.logoutHandler(request, response);
    } else if (url === "/getuser") { // called on load of add saying page to get the logged in username
-     loggedInUserHandler(request, response);
+    handlers.loggedInUserHandler(request, response);
    } else if (url.includes('public')) { //helps read html, css and js files
     publicHandler(request, response);
    } else {
